@@ -1,7 +1,23 @@
 {
   "name": "vue-sport-store",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bukovski/vue-sport-store.git"
+  },
+  "homepage": "https://bukovski.github.io/vue-sport-store/",
+  "keywords": [
+    "vue sort",
+    "vue list",
+    "vue pagination list",
+    "vue categories",
+    "vuex example",
+    "vue-router example"
+  ],
+  "author": "Bukovski",
+  "description": "An example of working with Vue sports store. Sort, search and display by list category",
+  "wst": "/dist/",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build"

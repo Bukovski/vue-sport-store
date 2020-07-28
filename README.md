@@ -1,19 +1,5 @@
-# vue-sport-store
+# <img src="https://ru.vuejs.org/images/logo.png" height="28">ue sport store
 
-## Project setup
-```
-npm install
-```
+  
+![The project is under construction](http://www.pngall.com/wp-content/uploads/2018/04/Under-Construction-PNG-File-Download-Free.png)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
