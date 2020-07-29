@@ -34,6 +34,7 @@
 		methods: {
 			...mapMutations([ "setCurrentPage", "setPageSize" ]),
 			changePageSize($event) {
+				// count show items page on page
 				this.setPageSize(Number($event.target.value));
 			}
 		},
