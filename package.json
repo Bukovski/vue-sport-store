@@ -20,7 +20,8 @@
   "wst": "/dist/",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "json": "json-server data.js -p 3500"
   },
   "dependencies": {
     "axios": "^0.19.2",
