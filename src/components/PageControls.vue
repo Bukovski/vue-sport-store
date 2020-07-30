@@ -6,6 +6,7 @@
           v-for="pageNumber in pageNumbers"
           :key="pageNumber"
           :class="{ 'btn-primary': pageNumber === currentPage }"
+          @click="setCurrentPage(pageNumber)"
       >
         {{ pageNumber }}
       </button>
@@ -14,10 +15,13 @@
 </template>
 
 <script>
-	import { mapState, mapGetters } from "vuex";
+	import { mapState, mapGetters, mapMutations } from "vuex";
 	
 	
 	export default {
+		methods: {
+			...mapMutations(["setCurrentPage"])
+		},
 		computed: {
 			...mapState([ "currentPage" ]),
 			...mapGetters([ "pageCount" ]),
@@ -26,6 +30,6 @@
 				// this.pageCount = 13 => [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ]
 				return [ ...Array(this.pageCount + 1).keys() ].slice(1);
 			}
-		}
+		},
 	}
 </script>
