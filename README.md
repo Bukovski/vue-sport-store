@@ -1,5 +1,6 @@
 # <img src="https://ru.vuejs.org/images/logo.png" height="35">ue sport store
 
+Page pagination and category product
   
-![The project is under construction](http://www.pngall.com/wp-content/uploads/2018/04/Under-Construction-PNG-File-Download-Free.png)
+![simple-cathegory-pagination](./snapshots/1.simple-cathegory-pagination.jpg)
 
