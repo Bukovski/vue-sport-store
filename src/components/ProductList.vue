@@ -9,7 +9,7 @@
       <h4>
         {{ product.name }}
         <span class="badge badge-pill badge-primary float-right">
-          {{ product.price }}
+          {{ product.price | currency }}
         </span>
       </h4>
       <div class="card-text bg-white p-1">{{ product.description }}</div>
@@ -25,6 +25,11 @@
 	export default {
 		computed: {
 			...mapState([ "products" ])
+		},
+		filters: {
+			currency(value) {
+				return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value);
+			}
 		}
 	}
 </script>
