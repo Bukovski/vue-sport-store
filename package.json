@@ -19,9 +19,9 @@
   "description": "An example of working with Vue sports store. Sort, search and display by list category",
   "wst": "/dist/",
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "json": "json-server data.js -p 3500"
+    "json-server": "json-server data.js -p 3500"
   },
   "dependencies": {
     "axios": "^0.19.2",
