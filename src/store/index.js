@@ -1,27 +1,21 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import Axios from "axios";
+
 
 Vue.use(Vuex);
 
-const testData = [];
+const baseUrl = "http://localhost:3500";
+const productsUrl = `${baseUrl}/products`;
+const categoriesUrl = `${baseUrl}/categories`;
 
-for (let i = 1; i <= 10; i++) {
-  testData.push(
-    {
-      id: i,
-      name: `Product #${ i }`,
-      category: `Category ${ i % 3 }`,
-      description: `This is Product #${ i }`,
-      price: i * 50
-    }
-  )
-}
 
 export default new Vuex.Store({
   strict: true,
   state: {
-    products: testData,
-    productsTotal: testData.length,
+    products: [],
+    categoriesData: [],
+    productsTotal: 0,
     currentPage: 1,
     pageSize: 4,
     currentCategory: "All"
@@ -35,7 +29,7 @@ export default new Vuex.Store({
       return getters.productsFilteredByCategory.slice(index, index + state.pageSize);
     },
     pageCount: (state, getters) => Math.ceil(getters.productsFilteredByCategory.length / state.pageSize),
-    categories: state => ["All", ...new Set(state.products.map(p => p.category).sort())]
+    categories: state => [ "All", ...state.categoriesData ]
   },
   mutations: {
     setCurrentPage(state, page) {
@@ -48,9 +42,20 @@ export default new Vuex.Store({
     setCurrentCategory(state, category) {
       state.currentCategory = category;
       state.currentPage = 1;
+    },
+    setData(state, data) {
+      state.products = data.pdata;
+      state.productsTotal = data.pdata.length;
+      state.categoriesData = data.cdata.sort();
     }
   },
   actions: {
+    async getData(context) {
+      const pdata = (await Axios.get(productsUrl)).data;
+      const cdata = (await Axios.get(categoriesUrl)).data;
+      
+      context.commit("setData", { pdata, cdata} );
+    }
   },
   modules: {
   }
