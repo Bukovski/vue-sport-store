@@ -40,7 +40,7 @@
 			handleProductAdd(product) {
 				this.addProduct(product);
 				
-				this.$router.push("/cart");
+				// this.$router.push("/cart");
 			}
 		},
 		computed: {
