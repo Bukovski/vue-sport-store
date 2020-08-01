@@ -21,18 +21,17 @@ export default new Vuex.Store({
   },
   
   state: {
-    //products: [],
     categoriesData: [],
-    //productsTotal: 0,
     currentPage: 1,
     pageSize: 4,
     currentCategory: "All",
     pages: [],
-    serverPageCount: 0
+    serverPageCount: 0,
+    searchTerm: "",
+    showSearch: false
   },
   
   getters: {
-    // productsFilteredByCategory: state => state.products.filter(p => state.currentCategory === "All" || p.category === state.currentCategory),
     processedProducts: (state) => state.pages[state.currentPage],
     pageCount: (state) => state.serverPageCount,
     categories: state => [ "All", ...state.categoriesData ]
@@ -50,11 +49,6 @@ export default new Vuex.Store({
       state.currentCategory = category;
       state.currentPage = 1;
     },
-    // setData(state, data) {
-    //     state.products = data.pdata;
-    //     state.productsTotal = data.pdata.length;
-    //     state.categoriesData = data.cdata.sort();
-    // },
     addPage(state, page) {
       for (let i = 0; i < page.pageCount; i++) {
         
@@ -77,6 +71,13 @@ export default new Vuex.Store({
     setPageCount(state, count) {
       state.serverPageCount = Math.ceil(Number(count) / state.pageSize);
     },
+    setShowSearch(state, show) {
+      state.showSearch = show;
+    },
+    setSearchTerm(state, term) {
+      state.searchTerm = term;
+      state.currentPage = 1;
+    },
   },
   
   actions: {
@@ -86,11 +87,17 @@ export default new Vuex.Store({
       context.commit("setCategories", (await Axios.get(categoriesUrl)).data);
     },
     async getPage(context, getPageCount = 1) {
-      // http://localhost:8080/products?_page=3&_limit=4&category=Watersports
+      // http://localhost:8080/products?_page=3&_limit=4
       let url = `${ productsUrl }?_page=${ context.state.currentPage }&_limit=${ context.state.pageSize * getPageCount }`;
       
+      // http://localhost:8080/products?_page=3&_limit=4&category=Watersports
       if (context.state.currentCategory !== "All") {
         url += `&category=${ context.state.currentCategory }`;
+      }
+  
+      // http://localhost:8080/products?_page=3&_limit=4&category=Soccer&q=car
+      if (context.state.searchTerm !== "") {
+        url += `&q=${ context.state.searchTerm }`;
       }
       
       const response = await Axios.get(url);
@@ -118,6 +125,16 @@ export default new Vuex.Store({
     setCurrentCategory(context, category) {
       context.commit("clearPages");
       context.commit("_setCurrentCategory", category);
+      context.dispatch("getPage", 2);
+    },
+    search(context, term) {
+      context.commit("setSearchTerm", term);
+      context.commit("clearPages");
+      context.dispatch("getPage", 2);
+    },
+    clearSearchTerm(context) {
+      context.commit("setSearchTerm", "");
+      context.commit("clearPages");
       context.dispatch("getPage", 2);
     }
   },
