@@ -11,9 +11,38 @@
     <div class="m-2">
       <div class="form-group m-2">
         <label>Name</label>
-        <input class="form-control " v-model="$v.name.$model"/>
+        <input class="form-control " v-model="$v.order.name.$model"/>
         
-        <validation-error :validation="$v.name" />
+        <validation-error :validation="$v.order.name" />
+      </div>
+    </div>
+  
+    <div class="m-2">
+      <div class="form-group m-2">
+        <label>Email</label>
+        <input v-model="$v.order.email.$model" class="form-control "/>
+        <validation-error v-bind:validation="$v.order.email" />
+      </div>
+    </div>
+    <div class="m-2">
+      <div class="form-group m-2">
+        <label>Address</label>
+        <input v-model="$v.order.address.$model" class="form-control "/>
+        <validation-error v-bind:validation="$v.order.address" />
+      </div>
+    </div>
+    <div class="m-2">
+      <div class="form-group m-2">
+        <label>City</label>
+        <input v-model="$v.order.city.$model" class="form-control "/>
+        <validation-error v-bind:validation="$v.order.city" />
+      </div>
+    </div>
+    <div class="m-2">
+      <div class="form-group m-2">
+        <label>Zip</label>
+        <input v-model="$v.order.zip.$model" class="form-control "/>
+        <validation-error v-bind:validation="$v.order.zip" />
       </div>
     </div>
     
@@ -31,26 +60,48 @@
 </template>
 
 <script>
-	import { required } from "vuelidate/lib/validators";
+	import { required, email } from "vuelidate/lib/validators";
 	import ValidationError  from "./ValidationError";
+	import { mapActions } from "vuex";
 	
 	
 	export default {
 		components: { ValidationError },
 		data() {
 			return {
-				name: null
+				order: {
+					name: null,
+					email: null,
+					address: null,
+					city: null,
+					zip: null
+				}
 			}
 		},
 		validations: {
-			name: {
-				required
+			order: {
+				name: { required },
+				email: { required, email },
+				address: { required },
+				city: { required },
+				zip: { required }
 			}
 		},
 		methods: {
-			submitOrder() {
+			...mapActions({
+				"storeOrder": "storeOrder",
+				"clearCart": "cart/clearCartData"
+			}),
+			async submitOrder() {
 				this.$v.$touch();
-				// todo: save order
+				
+				if (!this.$v.$invalid) {
+					const order = await this.storeOrder(this.order);
+					
+					this.clearCart();
+					
+					this.$router.push(`/thanks/${ order }`);
+				}
 			}
 		}
 	}
