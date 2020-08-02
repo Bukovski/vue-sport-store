@@ -21,7 +21,7 @@
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "json-server": "json-server data.js -p 3500"
+    "json-server": "json-server data.js -p 3500 -m authMiddleware.js"
   },
   "dependencies": {
     "axios": "^0.19.2",
