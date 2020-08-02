@@ -37,7 +37,7 @@ export default new Vuex.Store({
     processedProducts: (state) => state.pages[state.currentPage],
     pageCount: (state) => state.serverPageCount,
     categories: state => [ "All", ...state.categoriesData ],
-    productById: (state) => (id) => state.pages[ state.currentPage ].find(page => page.id === id)
+    productById: (state) => (id) => state.pages[ state.currentPage ].find(page => page.id == id)
   },
   
   mutations: {
@@ -86,7 +86,7 @@ export default new Vuex.Store({
     },
     _updateProduct(state, product) {
       const page = state.pages[ state.currentPage ];
-      const index = page.findIndex(p => p.id === product.id);
+      const index = page.findIndex(p => p.id == product.id);
       
       Vue.set(page, index, product);
     }
