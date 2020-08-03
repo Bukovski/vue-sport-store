@@ -16,7 +16,7 @@
     "vue-router example"
   ],
   "author": "Bukovski",
-  "description": "An example of working with Vue sports store. Sort, search and display by list category",
+  "description": "An example of working with Vue sports store. Sort, search and display by list category. Admin panel manages records on the site and processing of store orders",
   "wst": "/dist/",
   "scripts": {
     "dev": "vue-cli-service serve",
