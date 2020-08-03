@@ -35,8 +35,8 @@
 </template>
 
 <script>
-    import { required } from "vuelidate/lib/validators";
     import { mapActions, mapState } from "vuex";
+    import { required } from "vuelidate/lib/validators";
     import ValidationError  from "../ValidationError";
     
     
@@ -58,8 +58,11 @@
             async handleAuth() {
                 this.$v.$touch();
                 if (!this.$v.$invalid) {
-                    await this.authenticate({ name: this.username,
-                        password: this.password });
+                    await this.authenticate({
+                        name: this.username,
+                        password: this.password
+                    });
+                    
                     if (this.authenticated) {
                         this.$router.push("/admin");
                     } else {

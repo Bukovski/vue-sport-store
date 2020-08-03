@@ -60,9 +60,9 @@
 </template>
 
 <script>
+	import { mapActions } from "vuex";
 	import { required, email } from "vuelidate/lib/validators";
 	import ValidationError  from "./ValidationError";
-	import { mapActions } from "vuex";
 	
 	
 	export default {

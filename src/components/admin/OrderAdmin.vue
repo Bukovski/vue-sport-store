@@ -30,8 +30,10 @@
         <td>{{ `${order.city}, ${order.zip}` }}</td>
         <td class="text-right">{{ getTotal(order) | currency }}</td>
         <td class="text-center">
-          <button class="btn btn-sm btn-danger"
-                  @click="shipOrder(order)">
+          <button
+            class="btn btn-sm btn-danger"
+            @click="shipOrder(order)"
+          >
             {{ order.shipped ? 'Not Shipped' : 'Shipped' }}
           </button>
         </td>
